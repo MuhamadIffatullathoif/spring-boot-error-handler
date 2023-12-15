@@ -24,10 +24,11 @@ public class AppController {
 
     @GetMapping("/ver/{id}")
     public String ver(@PathVariable("id") Integer id, Model model) {
-        User user = userService.getById(id);
-        if (user == null) {
-            throw new UserNotFoundException(id.toString());
-        }
+        // User user = userService.getById(id);
+        // if (user == null) {
+        //    throw new UserNotFoundException(id.toString());
+        // }
+        User user = userService.optionalGetById(id).orElseThrow(() -> new UserNotFoundException(id.toString()));
         model.addAttribute("user", user);
         model.addAttribute("title", "Detail user ".concat(user.getName()));
         return "ver";
