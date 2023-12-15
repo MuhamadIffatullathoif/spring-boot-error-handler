@@ -15,6 +15,15 @@ public class ErrorHandlerController {
         model.addAttribute("message", exception.getMessage());
         model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
         model.addAttribute("timestamp", new Date());
-        return "error/arithmetic";
+        return "error/generic";
+    }
+
+    @ExceptionHandler(NumberFormatException.class)
+    public String numberFormatError(NumberFormatException exception, Model model) {
+        model.addAttribute("error", "Error: Format number invalid");
+        model.addAttribute("message", exception.getMessage());
+        model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        model.addAttribute("timestamp", new Date());
+        return "error/generic";
     }
 }
